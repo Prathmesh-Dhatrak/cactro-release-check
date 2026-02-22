@@ -16,7 +16,7 @@ services:
     region: oregon
     runtime: node
     rootDir: cactro-release-check-be
-    buildCommand: pnpm install && pnpm run build:prod
+    buildCommand: corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm run build:prod
     startCommand: node dist/server.js
     envVars:
       - key: NODE_ENV

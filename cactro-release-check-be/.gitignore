@@ -4,3 +4,9 @@ dist/
 *.log
 .DS_Store
 coverage/
+
+# Compiled seed artifacts (seed is run via ts-node, not tsc)
+prisma/seed.js
+prisma/seed.d.ts
+prisma/seed.js.map
+prisma/seed.d.ts.map
