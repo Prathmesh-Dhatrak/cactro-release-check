@@ -2,14 +2,9 @@ import { createApp } from './app';
 import { config } from './config';
 import { prisma } from './config/database';
 
-/**
- * Application entry point.
- * Starts the Express server and establishes the database connection.
- */
 async function main(): Promise<void> {
   const app = createApp();
 
-  /* Verify database connectivity before starting the server */
   try {
     await prisma.$connect();
     console.log('[DB] Connected to PostgreSQL successfully');
@@ -23,7 +18,6 @@ async function main(): Promise<void> {
     console.log(`[SERVER] API available at http://localhost:${config.port}/api`);
   });
 
-  /* Graceful shutdown handlers */
   const shutdown = async (signal: string): Promise<void> => {
     console.log(`\n[SERVER] Received ${signal}. Shutting down gracefully...`);
     await prisma.$disconnect();

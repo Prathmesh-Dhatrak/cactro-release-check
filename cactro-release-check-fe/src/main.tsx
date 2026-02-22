@@ -3,10 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import './index.css';
 
-/**
- * Application entry point.
- * Renders the root React component with StrictMode enabled.
- */
 const rootElement = document.getElementById('root');
 
 if (!rootElement) {

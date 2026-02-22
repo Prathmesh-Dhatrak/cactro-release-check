@@ -14,11 +14,6 @@ import { formatDate } from '@/utils/format';
 import { computeStatus } from '@/utils/computeStatus';
 import { ROUTES } from '@/config/constants';
 
-/**
- * Detail page for a single release.
- * Displays release info, checklist steps, and additional notes editor.
- * Matches the right panel of the mockup design.
- */
 export function ReleaseDetailPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const releaseId = id ?? '';
@@ -31,13 +26,11 @@ export function ReleaseDetailPage(): JSX.Element {
   const [additionalInfo, setAdditionalInfo] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  /** Initializes the text area with the current value when editing starts */
   const startEditing = useCallback((): void => {
     setAdditionalInfo(release?.additionalInfo ?? '');
     setIsEditing(true);
   }, [release?.additionalInfo]);
 
-  /** Handles saving the additional info */
   const handleSaveInfo = useCallback(
     (e: FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
@@ -58,7 +51,6 @@ export function ReleaseDetailPage(): JSX.Element {
     [releaseId, additionalInfo, updateInfoMutation],
   );
 
-  /** Handles toggling a step checkbox */
   const handleToggleStep = useCallback(
     (stepId: number, currentlyCompleted: boolean): void => {
       if (!releaseId) return;
@@ -85,12 +77,10 @@ export function ReleaseDetailPage(): JSX.Element {
     );
   }
 
-  /** Compute live status from the (possibly optimistically updated) completedSteps */
   const liveStatus = computeStatus(release.completedSteps, steps?.length ?? 7);
 
   return (
     <div>
-      {/* Breadcrumb & Actions */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm">
           <Link
@@ -106,7 +96,6 @@ export function ReleaseDetailPage(): JSX.Element {
         <StatusBadge status={liveStatus} />
       </div>
 
-      {/* Release Header */}
       <div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -126,7 +115,6 @@ export function ReleaseDetailPage(): JSX.Element {
         </div>
       </div>
 
-      {/* Checklist Steps */}
       <div className="mb-8">
         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
           Release Checklist
@@ -163,7 +151,6 @@ export function ReleaseDetailPage(): JSX.Element {
         </div>
       </div>
 
-      {/* Additional Info */}
       <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
         <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
           Additional remarks / notes

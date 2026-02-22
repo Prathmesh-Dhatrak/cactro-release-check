@@ -1,15 +1,10 @@
 import { AlertCircle } from 'lucide-react';
 
 interface ErrorMessageProps {
-  /** Error message to display */
   readonly message: string;
-  /** Optional retry callback */
   readonly onRetry?: () => void;
 }
 
-/**
- * Displays an error state with an optional retry button.
- */
 export function ErrorMessage({ message, onRetry }: ErrorMessageProps): JSX.Element {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-red-200 bg-red-50 p-6">

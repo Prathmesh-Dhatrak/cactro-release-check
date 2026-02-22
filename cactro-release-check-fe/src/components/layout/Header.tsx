@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/config/constants';
 
-/**
- * Application header with branding.
- * Displayed at the top of every page.
- */
 export function Header(): JSX.Element {
   return (
     <header className="border-b border-gray-200 bg-white">

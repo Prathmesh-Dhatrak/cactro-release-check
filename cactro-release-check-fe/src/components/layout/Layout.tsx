@@ -1,10 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 
-/**
- * Root layout component wrapping all pages.
- * Provides consistent header and content area.
- */
 export function Layout(): JSX.Element {
   return (
     <div className="flex min-h-screen flex-col">

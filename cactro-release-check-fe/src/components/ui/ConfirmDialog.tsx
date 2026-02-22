@@ -1,25 +1,15 @@
 import { AlertTriangle } from 'lucide-react';
 
 interface ConfirmDialogProps {
-  /** Whether the dialog is visible */
   readonly isOpen: boolean;
-  /** Dialog title */
   readonly title: string;
-  /** Dialog description/message */
   readonly message: string;
-  /** Label for the confirm button */
   readonly confirmLabel?: string;
-  /** Whether the confirm action is in progress */
   readonly isLoading?: boolean;
-  /** Callback when confirmed */
   readonly onConfirm: () => void;
-  /** Callback when cancelled */
   readonly onCancel: () => void;
 }
 
-/**
- * Modal confirmation dialog for destructive actions.
- */
 export function ConfirmDialog({
   isOpen,
   title,
