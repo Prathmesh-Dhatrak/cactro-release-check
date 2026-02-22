@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: releasecheck-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: releasecheck
+      POSTGRES_PASSWORD: releasecheck_secret
+      POSTGRES_DB: release_checklist
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U releasecheck -d release_checklist']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./cactro-release-check-be
+      dockerfile: Dockerfile
+    container_name: releasecheck-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3001
+      NODE_ENV: development
+      DATABASE_URL: postgresql://releasecheck:releasecheck_secret@db:5432/release_checklist?schema=public
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - '3001:3001'
+
+  # Frontend SPA
+  frontend:
+    build:
+      context: ./cactro-release-check-fe
+      dockerfile: Dockerfile
+    container_name: releasecheck-ui
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE_URL: http://localhost:3001/api
+    ports:
+      - '5173:5173'
+
+volumes:
+  pgdata:
+    driver: local

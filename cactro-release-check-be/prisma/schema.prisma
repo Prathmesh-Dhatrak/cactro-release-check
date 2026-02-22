@@ -1,0 +1,25 @@
+// Prisma Schema for Release Checklist Tool
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Represents a software release with its metadata and checklist progress.
+/// Status is computed from step completion state (not stored directly).
+model Release {
+  id             String   @id @default(uuid()) @db.Uuid
+  name           String   @db.VarChar(255)
+  date           DateTime
+  additionalInfo String?  @map("additional_info") @db.Text
+  completedSteps Int[]    @default([]) @map("completed_steps")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("releases")
+}
