@@ -10,10 +10,6 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { CreateReleaseModal } from '@/components/releases/CreateReleaseModal';
 import { formatDate } from '@/utils/format';
 
-/**
- * Main page displaying the list of all releases.
- * Matches the left panel of the mockup design.
- */
 export function ReleaseListPage(): JSX.Element {
   const { data: releases, isLoading, isError, error, refetch } = useReleasesQuery();
   const deleteMutation = useDeleteReleaseMutation();
@@ -22,7 +18,6 @@ export function ReleaseListPage(): JSX.Element {
   const deleteConfirmId = useUIStore((state) => state.deleteConfirmId);
   const setDeleteConfirmId = useUIStore((state) => state.setDeleteConfirmId);
 
-  /** Handles delete confirmation */
   const handleDeleteConfirm = useCallback((): void => {
     if (!deleteConfirmId) return;
 
@@ -35,7 +30,6 @@ export function ReleaseListPage(): JSX.Element {
 
   return (
     <div>
-      {/* Page Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <LinkIcon className="h-4 w-4 text-gray-400" />
@@ -51,7 +45,6 @@ export function ReleaseListPage(): JSX.Element {
         </button>
       </div>
 
-      {/* Content */}
       {isLoading && <LoadingSpinner message="Loading releases..." />}
 
       {isError && (
@@ -124,7 +117,6 @@ export function ReleaseListPage(): JSX.Element {
         </div>
       )}
 
-      {/* Modals */}
       <CreateReleaseModal />
 
       <ConfirmDialog

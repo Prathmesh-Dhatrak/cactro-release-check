@@ -10,15 +10,8 @@ import type {
 } from '../types/release.types';
 import { RELEASE_STEPS } from '../config/steps';
 
-/**
- * Controller layer for Release endpoints.
- * Handles HTTP request/response mapping and delegates to the service layer.
- */
 export const releaseController = {
-  /**
-   * GET /api/releases
-   * Returns all releases sorted by date descending.
-   */
+  // GET /api/releases
   async getAll(_req: Request, res: Response): Promise<void> {
     const releases = await releaseService.getAll();
 
@@ -30,10 +23,7 @@ export const releaseController = {
     res.status(StatusCodes.OK).json(response);
   },
 
-  /**
-   * GET /api/releases/:id
-   * Returns a single release by ID.
-   */
+  // GET /api/releases/:id
   async getById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     const release = await releaseService.getById(id as string);
@@ -46,10 +36,7 @@ export const releaseController = {
     res.status(StatusCodes.OK).json(response);
   },
 
-  /**
-   * POST /api/releases
-   * Creates a new release.
-   */
+  // POST /api/releases
   async create(req: Request, res: Response): Promise<void> {
     const data = req.body as CreateReleaseDto;
     const release = await releaseService.create(data);
@@ -63,10 +50,7 @@ export const releaseController = {
     res.status(StatusCodes.CREATED).json(response);
   },
 
-  /**
-   * PATCH /api/releases/:id/info
-   * Updates the additional info of a release.
-   */
+  // PATCH /api/releases/:id/info
   async updateInfo(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     const data = req.body as UpdateReleaseInfoDto;
@@ -81,10 +65,7 @@ export const releaseController = {
     res.status(StatusCodes.OK).json(response);
   },
 
-  /**
-   * PATCH /api/releases/:id/steps
-   * Toggles a step's completion state.
-   */
+  // PATCH /api/releases/:id/steps
   async toggleStep(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     const data = req.body as ToggleStepDto;
@@ -99,10 +80,7 @@ export const releaseController = {
     res.status(StatusCodes.OK).json(response);
   },
 
-  /**
-   * DELETE /api/releases/:id
-   * Deletes a release.
-   */
+  // DELETE /api/releases/:id
   async delete(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     await releaseService.delete(id as string);
@@ -116,11 +94,7 @@ export const releaseController = {
     res.status(StatusCodes.OK).json(response);
   },
 
-  /**
-   * GET /api/releases/steps
-   * Returns the list of all available release steps.
-   * This is a static endpoint — steps don't change over time.
-   */
+  // GET /api/releases/steps
   async getSteps(_req: Request, res: Response): Promise<void> {
     const response: ApiResponse<typeof RELEASE_STEPS> = {
       success: true,

@@ -8,21 +8,9 @@ import {
   uuidParamSchema,
 } from '../validators/release.validators';
 
-/**
- * Release API routes.
- *
- * Endpoints:
- * - GET    /api/releases        → List all releases
- * - GET    /api/releases/steps  → Get available checklist steps
- * - GET    /api/releases/:id    → Get a single release
- * - POST   /api/releases        → Create a new release
- * - PATCH  /api/releases/:id/info  → Update release additional info
- * - PATCH  /api/releases/:id/steps → Toggle a step's completion
- * - DELETE /api/releases/:id    → Delete a release
- */
 const router: Router = Router();
 
-/* Static route must come before parameterized routes to avoid conflicts */
+// static route before parameterized ones
 router.get('/steps', releaseController.getSteps);
 
 router.get('/', releaseController.getAll);

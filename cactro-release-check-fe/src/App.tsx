@@ -7,11 +7,6 @@ import { ReleaseListPage } from '@/pages/ReleaseListPage';
 import { ReleaseDetailPage } from '@/pages/ReleaseDetailPage';
 import { ROUTES } from '@/config/constants';
 
-/**
- * TanStack Query client with sensible defaults.
- * - Retries failed requests up to 2 times
- * - Refetches on window focus for data freshness
- */
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -21,10 +16,6 @@ const queryClient = new QueryClient({
   },
 });
 
-/**
- * Root application component.
- * Sets up routing, query client provider, and toast notifications.
- */
 export function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
@@ -37,7 +28,6 @@ export function App(): JSX.Element {
         </Routes>
       </BrowserRouter>
 
-      {/* Toast notifications */}
       <Toaster
         position="bottom-right"
         toastOptions={{
@@ -48,7 +38,6 @@ export function App(): JSX.Element {
         }}
       />
 
-      {/* React Query DevTools (dev only) */}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

@@ -3,10 +3,6 @@ import { X } from 'lucide-react';
 import { useUIStore } from '@/store/useUIStore';
 import { useCreateReleaseMutation } from '@/hooks/useReleaseQueries';
 
-/**
- * Modal form for creating a new release.
- * Validates required fields before submission.
- */
 export function CreateReleaseModal(): JSX.Element | null {
   const isOpen = useUIStore((state) => state.isCreateModalOpen);
   const closeModal = useUIStore((state) => state.closeCreateModal);
@@ -16,14 +12,12 @@ export function CreateReleaseModal(): JSX.Element | null {
   const [date, setDate] = useState<string>('');
   const [additionalInfo, setAdditionalInfo] = useState<string>('');
 
-  /** Resets form fields to their initial state */
   const resetForm = useCallback((): void => {
     setName('');
     setDate('');
     setAdditionalInfo('');
   }, []);
 
-  /** Handles form submission */
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
@@ -47,7 +41,6 @@ export function CreateReleaseModal(): JSX.Element | null {
     [name, date, additionalInfo, createMutation, resetForm, closeModal],
   );
 
-  /** Handles modal close with form reset */
   const handleClose = useCallback((): void => {
     resetForm();
     closeModal();
@@ -57,14 +50,12 @@ export function CreateReleaseModal(): JSX.Element | null {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 transition-opacity"
         onClick={handleClose}
         role="presentation"
       />
 
-      {/* Modal */}
       <div className="relative z-10 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900">New Release</h2>
@@ -79,7 +70,6 @@ export function CreateReleaseModal(): JSX.Element | null {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Release Name */}
           <div>
             <label htmlFor="release-name" className="block text-sm font-medium text-gray-700">
               Release Name <span className="text-red-500">*</span>
@@ -96,7 +86,6 @@ export function CreateReleaseModal(): JSX.Element | null {
             />
           </div>
 
-          {/* Release Date */}
           <div>
             <label htmlFor="release-date" className="block text-sm font-medium text-gray-700">
               Due Date <span className="text-red-500">*</span>
@@ -111,7 +100,6 @@ export function CreateReleaseModal(): JSX.Element | null {
             />
           </div>
 
-          {/* Additional Info */}
           <div>
             <label htmlFor="release-info" className="block text-sm font-medium text-gray-700">
               Additional Information
@@ -127,7 +115,6 @@ export function CreateReleaseModal(): JSX.Element | null {
             />
           </div>
 
-          {/* Actions */}
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
